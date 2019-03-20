@@ -9,6 +9,7 @@ using MustardBlack.Assets.Css.Less;
 using MustardBlack.Assets.Css.Sass;
 using MustardBlack.Assets.Javascript;
 using MustardBlack.Assets.YuiCompressor;
+using NUglify;
 
 namespace MustardBlack.Assets.Build
 {
@@ -85,8 +86,7 @@ namespace MustardBlack.Assets.Build
 
 				if (opts.Contains("minify"))
 				{
-					javascriptPreprocessor = new YuiJavascriptPreprocessor();
-					result = javascriptPreprocessor.Process(new [] { new AssetContent("<babel-output>", result) });
+					result = Uglify.Js(result).Code;
 				}
 			}
 			else
